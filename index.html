@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a1f44">
+<meta name="description" content="AndieTech Solutions in Mbarara: software, websites, graphics, unlimited internet, data analysis, digital marketing and system management.">
+<title>AndieTech Solutions | Technology That Moves Business Forward</title>
+
+<script>document.documentElement.classList.add('js');</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+/* ================= TOKENS ================= */
+:root{
+    --ink:#0a1f44;
+    --ink-2:#12305f;
+    --blue:#1b64f2;
+    --sky:#e8f0ff;
+    --paper:#f5f8fd;
+    --text:#16233b;
+    --muted:#55647d;
+    --line:#d9e2f0;
+    --orange:#d9430b;
+    --spark:#ff6a2b;
+    --wa:#0b8a48;
+
+    --topbar:64px;
+    --gutter:clamp(16px,5vw,64px);
+
+    --display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+    --body:'DM Sans','Segoe UI',system-ui,-apple-system,sans-serif;
+}
+
+/* ================= BASE ================= */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+    font-family:var(--body);
+    font-size:1rem;
+    line-height:1.65;
+    background:var(--paper);
+    color:var(--text);
+}
+body.lock{overflow:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+ul,ol{list-style:none}
+h1,h2,h3{font-family:var(--display);line-height:1.1;letter-spacing:-.02em}
+:focus-visible{outline:3px solid var(--spark);outline-offset:3px}
+
+.wrap{max-width:1120px;margin:0 auto}
+.section{padding:clamp(48px,8vw,96px) var(--gutter)}
+.section.white{background:#fff}
+.h2{font-size:clamp(1.8rem,5vw,2.8rem);color:var(--ink)}
+.lead{margin-top:14px;color:var(--muted);max-width:58ch;font-size:1.05rem}
+
+/* ================= BUTTONS ================= */
+.btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;
+    min-height:48px;padding:0 24px;border-radius:999px;
+    font:700 1rem var(--body);color:#fff;border:2px solid transparent;
+    cursor:pointer;transition:background .2s,transform .2s;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-call{background:var(--blue)}
+.btn-call:hover{background:#1553d0}
+.btn-wa{background:var(--wa)}
+.btn-wa:hover{background:#097a40}
+.btn-ghost{border-color:rgba(255,255,255,.55)}
+.btn-ghost:hover{background:rgba(255,255,255,.12)}
+.btn-row{display:flex;flex-wrap:wrap;gap:12px}
+
+/* ================= TOP BAR ================= */
+.topbar{
+    position:sticky;top:0;z-index:100;
+    height:var(--topbar);
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:0 var(--gutter);
+    background:var(--ink);color:#b60612;
+    box-shadow:0 3px 14px rgba(0,0,0,.18);
+}
+.brand{
+    display:flex;align-items:center;gap:10px;
+    font-family:var(--display);font-weight:800;font-size:1.15rem;
+    letter-spacing:-.01em;white-space:nowrap;
+}
+.brand .mark{
+    width:38px;height:38px;border-radius:11px;
+    background:var(--spark);color:var(--ink);
+    display:grid;place-items:center;font-size:1.25rem;
+}
+.brand em{font-style:normal;font-weight:500;color:#9db6e3}
+
+.menu{display:none;gap:6px}
+.menu a{
+    padding:8px 16px;border-radius:999px;
+    font-weight:500;color:#cfdcf5;
+    transition:color .2s,background .2s;
+}
+.menu a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.menu a.active{color:#fff;background:rgba(255,255,255,.16)}
+
+.icon-btn{
+    width:46px;height:46px;border-radius:13px;
+    display:grid;place-items:center;
+    background:transparent;color:#e0f2f8;font-size:1.25rem;
+    border:1.5px solid rgba(255,255,255,.28);cursor:pointer;
+}
+.icon-btn:hover{background:rgba(255,255,255,.1)}
+
+/* ================= SIDE DRAWER (MOBILE) ================= */
+.scrim{
+    position:fixed;inset:0;z-index:200;
+    background:rgba(5,14,32,.62);
+    opacity:0;visibility:hidden;
+    transition:opacity .3s,visibility 0s .3s;
+}
+.scrim.show{opacity:1;visibility:visible;transition:opacity .3s}
+
+.drawer{
+    position:fixed;top:0;right:0;bottom:0;z-index:300;
+    width:min(86vw,360px);
+    display:flex;flex-direction:column;
+    padding:16px 22px 24px;
+    background:var(--ink);color:#c0d2ed;
+    overflow-y:auto;
+    transform:translateX(100%);visibility:hidden;
+    transition:transform .35s cubic-bezier(.3,.8,.3,1),visibility 0s .35s;
+}
+.drawer.open{
+    transform:none;visibility:visible;
+    transition:transform .35s cubic-bezier(.3,.8,.3,1);
+}
+.drawer-top{display:flex;align-items:center;justify-content:space-between;height:48px;margin-bottom:22px}
+.drawer-nav a{
+    display:flex;align-items:center;gap:16px;
+    padding:15px 0;
+    font-family:var(--display);font-weight:700;font-size:1.7rem;letter-spacing:-.02em;
+    color:#dbe6fb;border-bottom:1px solid rgba(255,255,255,.1);
+}
+.drawer-nav i{width:28px;font-size:1.2rem;color:#7da4ee;text-align:center}
+.drawer-nav a.active{color:var(--spark)}
+.drawer-nav a.active i{color:var(--spark)}
+.drawer-foot{margin-top:auto;padding-top:28px;display:grid;gap:12px}
+.drawer-foot .btn{width:100%}
+.drawer-foot p{color:#9db6e3;font-size:.92rem;text-align:center;margin-top:6px}
+
+@media(min-width:900px){
+    .menu{display:flex}
+    .icon-btn,.drawer,.scrim{display:none}
+}
+@media(max-width:360px){
+    .brand{font-size:1rem}
+    .brand .mark{width:34px;height:34px}
+}
+
+/* ================= PAGES ================= */
+.js .page{display:none}
+.js .page.active{display:block;animation:pageIn .4s ease}
+@keyframes pageIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+
+.page-head{
+    background:var(--ink);color:#9ec1cf;
+    padding:clamp(40px,7vw,84px) var(--gutter) clamp(52px,8vw,96px);
+    clip-path:polygon(0 0,100% 0,100% 100%,0 calc(100% - clamp(16px,3vw,36px)));
+}
+.page-head h1{font-size:clamp(2.2rem,7vw,3.8rem);max-width:16ch}
+.page-head p{margin-top:14px;color:#b9cbea;font-size:1.1rem;max-width:52ch}
+
+/* ================= HOME: HERO ================= */
+.hero{
+    min-height:min(720px,calc(100svh - var(--topbar)));
+    display:flex;align-items:center;
+    padding:clamp(56px,10vw,110px) var(--gutter) clamp(72px,11vw,130px);
+    color:#e05119;
+    background-color:var(--ink);
+    background-image:
+        linear-gradient(105deg,rgba(6,20,45,.93) 0%,rgba(6,20,45,.74) 55%,rgba(6,20,45,.42) 100%),
+        url("https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1600&q=80");
+    background-size:cover;background-position:center;
+    clip-path:polygon(0 0,100% 0,100% 100%,0 calc(100% - clamp(20px,4vw,48px)));
+}
+.hero-inner{max-width:1120px;width:100%;margin:0 auto}
+.hero h1{
+    font-size:clamp(2.5rem,9vw,5rem);font-weight:800;
+    line-height:1.02;max-width:15ch;
+}
+.hero p.intro{margin:22px 0 30px;max-width:50ch;font-size:clamp(1.02rem,2.6vw,1.2rem);color:#dbe8fb}
+.hero-facts{display:flex;flex-wrap:wrap;gap:10px 26px;margin-top:30px;color:#cfe0fb;font-size:.95rem}
+.hero-facts li{display:flex;align-items:center;gap:9px}
+.hero-facts i{color:var(--spark)}
+@media(max-width:560px){
+    .hero .btn{width:100%}
+}
+
+/* ================= HOME: QUICK SERVICES ================= */
+.split{display:grid;gap:40px}
+@media(min-width:900px){
+    .split{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:64px;align-items:start}
+}
+.split .btn{margin-top:26px}
+.quick li:first-child a{border-top:1px solid var(--line)}
+.quick a{
+    display:flex;align-items:center;gap:16px;
+    padding:16px 4px;border-bottom:1px solid var(--line);
+    transition:padding .25s;
+}
+.quick a:hover{padding-left:12px}
+.quick .ico{
+    flex:none;width:46px;height:46px;border-radius:13px;
+    background:var(--sky);color:var(--blue);
+    display:grid;place-items:center;font-size:1.1rem;
+}
+.quick strong{display:block;font-family:var(--display);font-size:1.1rem;color:var(--ink);line-height:1.25}
+.quick span.sub{display:block;color:var(--muted);font-size:.93rem;line-height:1.45}
+.quick .go{margin-left:auto;color:var(--blue);font-size:.85rem}
+
+/* ================= HOME: WHY US ================= */
+.why{display:grid;gap:0 48px;margin-top:36px}
+@media(min-width:700px){.why{grid-template-columns:repeat(2,1fr)}}
+.why li{display:flex;gap:16px;padding:24px 0;border-top:2px solid var(--ink)}
+.why i{flex:none;margin-top:4px;font-size:1.4rem;color:var(--orange);width:30px}
+.why h3{font-size:1.25rem;color:var(--ink);margin-bottom:6px}
+.why p{color:var(--muted)}
+
+/* ================= HOME: CTA ================= */
+.cta{
+    background:var(--ink);color:#82d59c;
+    border-radius:28px;
+    padding:clamp(28px,6vw,64px);
+    display:grid;gap:22px;
+}
+.cta h2{font-size:clamp(1.9rem,5vw,3.1rem);max-width:16ch}
+.cta p{color:#b9cbea;max-width:50ch;font-size:1.05rem}
+
+/* ================= SERVICES PAGE ================= */
+.grid{display:grid;gap:26px;grid-template-columns:1fr}
+@media(min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:960px){.grid{grid-template-columns:repeat(3,1fr)}}
+
+.card{
+    display:flex;flex-direction:column;
+    background:#ade6fd;border:1px solid var(--line);
+    border-radius:20px;overflow:hidden;
+}
+.thumb{
+    position:relative;height:170px;
+    background-color:var(--ink-2);
+    background-size:cover;background-position:center;
+}
+.thumb .badge{
+    position:absolute;left:20px;bottom:-26px;
+    width:54px;height:54px;border-radius:16px;
+    background:var(--blue);color:#81638f;
+    display:grid;place-items:center;font-size:1.2rem;
+    border:4px solid #da7640;
+}
+.card-body{display:flex;flex-direction:column;flex:1;padding:40px 22px 24px}
+.card h3{font-size:1.3rem;color:var(--ink);margin-bottom:8px}
+.card p{color:var(--muted);font-size:.97rem}
+.card ul{display:grid;gap:8px;margin:14px 0 20px;font-size:.95rem}
+.card li{display:flex;gap:10px;align-items:flex-start}
+.card li i{margin-top:7px;font-size:.75rem;color:var(--wa)}
+.card .ask{
+    margin-top:auto;display:inline-flex;align-items:center;gap:8px;
+    color:var(--blue);font-weight:700;padding:6px 0;
+}
+.card .ask:hover{text-decoration:underline}
+
+.software{background-image:url("https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=900&q=75")}
+.web{background-image:url("https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=900&q=75")}
+.graphics{background-image:url("https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&w=900&q=75")}
+.internet{background-image:url("https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=75")}
+.data{background-image:url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=75")}
+.marketing{background-image:url("https://images.unsplash.com/photo-1557838923-2985c318be48?auto=format&fit=crop&w=900&q=75")}
+.system{background-image:url("https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=900&q=75")}
+
+/* ================= ABOUT PAGE ================= */
+.about-grid{display:grid;gap:40px}
+@media(min-width:900px){
+    .about-grid{grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:64px;align-items:center}
+}
+.about-grid.solo{grid-template-columns:minmax(0,1fr)}
+.prose p{margin-top:16px;color:var(--muted);max-width:62ch;font-size:1.05rem}
+
+.ceo{max-width:420px;margin:0 auto;width:100%}
+.ceo img{
+    width:100%;aspect-ratio:4/5;object-fit:cover;object-position:center 20%;
+    border-radius:24px;background:var(--sky);
+}
+.ceo figcaption{margin-top:12px;font-weight:700;color:var(--ink)}
+.ceo figcaption span{display:block;font-weight:400;color:var(--muted);font-size:.93rem}
+
+.mv{display:grid;gap:18px}s
+@media(min-width:760px){.mv{grid-template-columns:1fr 1fr}}
+.mv article{padding:28px;border-radius:20px;background:var(--sky);border-left:5px solid var(--orange)}
+.mv i{display:block;margin-bottom:12px;font-size:1.6rem;color:var(--blue)}
+.mv h3{font-size:1.4rem;color:var(--ink);margin-bottom:8px}
+.mv p{color:var(--muted)}
+
+.values{display:grid;gap:22px;grid-template-columns:1fr 1fr;margin-top:36px}
+@media(min-width:900px){.values{grid-template-columns:repeat(4,1fr)}}
+.values li{padding-top:14px;border-top:2px solid var(--ink)}
+.values h3{font-size:1.2rem;color:var(--ink);margin-bottom:6px}
+.values p{color:var(--muted);font-size:.97rem}
+
+.steps{counter-reset:step;display:grid;gap:18px;margin-top:36px}
+@media(min-width:900px){.steps{grid-template-columns:repeat(4,1fr)}}
+.steps li{
+    counter-increment:step;
+    padding:22px 20px;background:#88c7e4;
+    border:1px solid var(--line);border-radius:18px;
+}
+.steps li::before{
+    content:counter(step);
+    display:grid;place-items:center;
+    width:38px;height:38px;margin-bottom:12px;border-radius:50%;
+    background:var(--ink);color:#c7c5d0;font:700 1.05rem var(--display);
+}
+.steps h3{font-size:1.15rem;color:var(--ink);margin-bottom:6px}
+.steps p{color:var(--muted);font-size:.97rem}
+
+/* ================= CONTACT PAGE ================= */
+.contact-grid{display:grid;gap:36px}
+@media(min-width:900px){
+    .contact-grid{grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;align-items:start}
+}
+.rows .row:first-child{border-top:1px solid var(--line)}
+.row{display:flex;align-items:center;gap:16px;padding:18px 0;border-bottom:1px solid var(--line)}
+.row .ico{
+    flex:none;width:60px;height:70px;border-radius:50%;
+    background:var(--sky);color:var(--blue);
+    display:grid;place-items:center;font-size:1.15rem;
+}
+.row small{display:block;color:var(--muted);font-size:.88rem;line-height:1.3}
+.row b{font-size:1.05rem;color:var(--ink);overflow-wrap:anywhere}
+.row a{display:inline-block;padding:3px 0}
+.row a:hover{color:var(--blue);text-decoration:underline}
+
+.form{
+    display:grid;gap:16px;
+    padding:clamp(20px,4vw,36px);
+    background:#5696b9;border:1px solid var(--line);border-radius:24px;
+}
+.form h2{font-size:1.6rem;color:var(--ink)}
+.form > p{color:var(--muted);margin-top:-6px}
+.field label{display:block;margin-bottom:6px;font-weight:700;font-size:.95rem;color:var(--ink)}
+.field input,.field select,.field textarea{
+    width:100%;padding:13px 14px;
+    font:inherit;font-size:1rem;color:var(--text);
+    background:#dfdfe3;border:1.5px solid #3a61a3;border-radius:12px;
+}
+.field textarea{min-height:130px;resize:vertical}
+.field input:focus,.field select:focus,.field textarea:focus{
+    outline:3px solid rgba(1, 12, 32, 0.3);border-color:var(--blue);
+}
+.form .btn{width:100%}
+
+/* ================= FOOTER ================= */
+.footer{background:var(--ink);color:#7189b2;padding:clamp(40px,6vw,64px) var(--gutter) 28px}
+.footer-grid{display:grid;gap:30px;max-width:1120px;margin:0 auto}
+@media(min-width:800px){.footer-grid{grid-template-columns:2fr 1fr 1.5fr}}
+.footer .brand{color:#a42a2a;margin-bottom:12px}
+.footer h3{font-size:1.05rem;color:#0e35e7;margin-bottom:10px}
+.footer li{margin:7px 0}
+.footer a:hover{color:#a7342a;text-decoration:underline}
+.copy{
+    max-width:1120px;margin:34px auto 0;padding-top:18px;
+    border-top:1px solid rgba(255,255,255,.14);font-size:.9rem;
+}
+
+/* ================= FLOATING WHATSAPP ================= */
+.float{
+    position:fixed;right:18px;bottom:calc(18px + env(safe-area-inset-bottom));z-index:90;
+    width:58px;height:58px;border-radius:50%;
+    display:grid;place-items:center;
+    background:var(--wa);color:#e2e0e9;font-size:1.9rem;
+    box-shadow:0 8px 24px rgba(0,0,0,.3);
+    transition:transform .2s;
+}
+.float:hover{transform:scale(1.08)}
+
+@media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<header class="topbar">
+    <a class="brand" href="#home" aria-label="AndieTech Solutions home">
+        <span class="mark">A</span>
+        <span>AndieTech <em>Solutions</em></span>
+    </a>
+
+    <nav class="menu" aria-label="Main">
+        <a href="#home" data-link="home">HOME</a>
+        <a href="#services" data-link="services">SERVICES</a>
+        <a href="#about" data-link="about">ABOUT</a>
+        <a href="#contact" data-link="contact">CONTACT</a>
+    </nav>
+
+    <button class="icon-btn" id="openMenu" type="button"
+            aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+</header>
+
+
+<!-- ================= SIDE MENU (MOBILE) ================= -->
+<div class="scrim" id="scrim"></div>
+
+<aside class="drawer" id="drawer" aria-label="Site menu">
+    <div class="drawer-top">
+        <span class="brand"><span class="mark">A</span><span>AndieTech</span></span>
+        <button class="icon-btn" id="closeMenu" type="button" aria-label="Close menu">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+    </div>
+
+    <nav class="drawer-nav" aria-label="Mobile">
+        <a href="#home" data-link="home"><i class="fa-solid fa-house"></i>HOME</a>
+        <a href="#services" data-link="services"><i class="fa-solid fa-laptop-code"></i>SERVICES</a>
+        <a href="#about" data-link="about"><i class="fa-solid fa-circle-info"></i>ABOUT</a>
+        <a href="#contact" data-link="contact"><i class="fa-solid fa-address-book"></i>CONTACT</a>
+    </nav>
+
+    <div class="drawer-foot">
+        <a class="btn btn-call" href="tel:+256756027164">
+            <i class="fa-solid fa-phone"></i> Call AndieTech
+        </a>
+        <a class="btn btn-wa" target="_blank" rel="noopener"
+           href="https://wa.me/256761294119?text=Hello%20AndieTech%20Solutions,%20I%20would%20like%20to%20make%20an%20inquiry.">
+            <i class="fa-brands fa-whatsapp"></i> WhatsApp us
+        </a>
+        <p>Mbarara City, Kihumuro-MUST</p>
+    </div>
+</aside>
+
+
+<main>
+
+<!-- ==================================================== -->
+<!-- ===================== HOME PAGE ==================== -->
+<!-- ==================================================== -->
+<div class="page" id="page-home">
+
+    <section class="hero">
+        <div class="hero-inner">
+            <h1>Technology that moves business forward.</h1>
+
+            <p class="intro">
+                Software, websites, design, data and internet services for
+                individuals, businesses and organizations. Affordable,
+                reliable and built to help you grow.
+            </p>
+
+            <div class="btn-row">
+                <a href="tel:+256756027164" class="btn btn-call">
+                    <i class="fa-solid fa-phone"></i> Call AndieTech
+                </a>
+                <a href="https://wa.me/256761294119?text=Hello%20AndieTech%20Solutions,%20I%20would%20like%20to%20make%20an%20inquiry."
+                   target="_blank" rel="noopener" class="btn btn-wa">
+                    <i class="fa-brands fa-whatsapp"></i> WhatsApp us
+                </a>
+                <a href="#services" class="btn btn-ghost">SEE OUR SERVICES</a>
+            </div>
+
+            <ul class="hero-facts">
+                <li><i class="fa-solid fa-phone"></i> 0756027164 / 0731918383</li>
+                <li><i class="fa-solid fa-location-dot"></i> Mbarara City, Kihumuro-MUST</li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="wrap split">
+            <div>
+                <h2 class="h2">Everything your business needs to get online and grow</h2>
+                <p class="lead">
+                    From a first website to a full business system, we handle the
+                    technical work so you can focus on running your business.
+                </p>
+                <a href="#services" class="btn btn-call">SEE ALL OUR SERVICES</a>
+            </div>
+
+            <ul class="quick">
+                <li><a href="#services">
+                    <span class="ico"><i class="fa-solid fa-code"></i></span>
+                    <div><strong>SOFTWARE DEVELOPMENT</strong><span class="sub">Custom software and business applications</span></div>
+                    <i class="fa-solid fa-chevron-right go"></i></a></li>
+                <li><a href="#services">
+                    <span class="ico"><i class="fa-solid fa-globe"></i></span>
+                    <div><strong>WEB DEVELOPMENT</strong><span class="sub">Modern, responsive and professional websites</span></div>
+                    <i class="fa-solid fa-chevron-right go"></i></a></li>
+                <li><a href="#services">
+                    <span class="ico"><i class="fa-solid fa-pen-nib"></i></span>
+                    <div><strong>GRAPHICS &amp; DESIGN</strong><span class="sub">Branding, flyers and creative designs</span></div>
+                    <i class="fa-solid fa-chevron-right go"></i></a></li>
+                <li><a href="#services">
+                    <span class="ico"><i class="fa-solid fa-wifi"></i></span>
+                    <div><strong>UNLIMITED INTERNET CONNECTIONS</strong><span class="sub">Unlimited data with KYC activation</span></div>
+                    <i class="fa-solid fa-chevron-right go"></i></a></li>
+                <li><a href="#services">
+                    <span class="ico"><i class="fa-solid fa-chart-column"></i></span>
+                    <div><strong>DATA ANALYSIS</strong><span class="sub">Turn your data into useful insights</span></div>
+                    <i class="fa-solid fa-chevron-right go"></i></a></li>
+                <li><a href="#services">
+                    <span class="ico"><i class="fa-solid fa-bullhorn"></i></span>
+                    <div><strong>DIGITAL MARKETING</strong><span class="sub">Social media and online advertising</span></div>
+                    <i class="fa-solid fa-chevron-right go"></i></a></li>
+                <li><a href="#services">
+                    <span class="ico"><i class="fa-solid fa-server"></i></span>
+                    <div><strong>SYSTEM DEVELOPMENT &amp; MANAGEMENT</strong><span class="sub">Reliable business systems and technical support</span></div>
+                    <i class="fa-solid fa-chevron-right go"></i></a></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section white">
+        <div class="wrap">
+            <h2 class="h2">WHY MOST PEOPLE WORK WITH ANDIETECH</h2>
+
+            <ul class="why">
+                <li>
+                    <i class="fa-solid fa-tags"></i>
+                    <div>
+                        <h3>AFFORDABLE</h3>
+                        <p>Fair prices for individuals, small businesses and organizations.</p>
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <div>
+                        <h3>RELIABLE</h3>
+                        <p>We build things that work day after day and we stay reachable when you need help.</p>
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-solid fa-location-dot"></i>
+                    <div>
+                        <h3>BASED IN MBARARA CITY</h3>
+                        <p>Find us in Kihumuro_MUST , Mbarara City. Visit, call or message us.</p>
+                    </div>
+                </li>
+                <li>
+                    <i class="fa-solid fa-headset"></i>
+                    <div>
+                        <h3>EASY TO REACH</h3>
+                        <p>Call or message on WhatsApp and talk straight to the team.</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="wrap">
+            <div class="cta">
+                <h2>Have a project in mind?</h2>
+                <p>Tell us what you need. We will reply with the next steps.</p>
+                <div class="btn-row">
+                    <a href="tel:+256756027164" class="btn btn-call">
+                        <i class="fa-solid fa-phone"></i> Call AndieTech
+                    </a>
+                    <a href="https://wa.me/256761294119?text=Hello%20AndieTech%20Solutions,%20I%20need%20your%20services."
+                       target="_blank" rel="noopener" class="btn btn-wa">
+                        <i class="fa-brands fa-whatsapp"></i> Chat on WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+
+<!-- ==================================================== -->
+<!-- =================== SERVICES PAGE ================== -->
+<!-- ==================================================== -->
+<div class="page" id="page-services">
+
+    <section class="page-head">
+        <div class="wrap">
+            <h1>OUR SERVICES</h1>
+            <p>Professional Technology solutions for modern Businesses.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="wrap grid">
+
+            <article class="card">
+                <div class="thumb software"><span class="badge"><i class="fa-solid fa-code"></i></span></div>
+                <div class="card-body">
+                    <h3>SOFTWARE DEVELOPMENT</h3>
+                    <p>Custom software, applications and business systems built around the way you work.</p>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i>Business management systems</li>
+                        <li><i class="fa-solid fa-check"></i>Desktop and mobile applications</li>
+                        <li><i class="fa-solid fa-check"></i>Features made for your needs</li>
+                    </ul>
+                    <a class="ask" target="_blank" rel="noopener"
+                       href="https://wa.me/256761294119?text=Hello%20AndieTech%20Solutions,%20I%20am%20interested%20in%20Software%20Development.">
+                        <i class="fa-brands fa-whatsapp"></i> Ask about this service</a>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="thumb web"><span class="badge"><i class="fa-solid fa-globe"></i></span></div>
+                <div class="card-body">
+                    <h3>WEB DEVELOPMENT</h3>
+                    <p>Modern, responsive and professional websites that look good on every screen.</p>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i>Business and portfolio websites</li>
+                        <li><i class="fa-solid fa-check"></i>Phone, tablet and computer friendly</li>
+                        <li><i class="fa-solid fa-check"></i>Call and WhatsApp buttons built in</li>
+                    </ul>
+                    <a class="ask" target="_blank" rel="noopener"
+                       href="https://wa.me/256761294119?text=Hello%20AndieTech%20Solutions,%20I%20am%20interested%20in%20Web%20Development.">
+                        <i class="fa-brands fa-whatsapp"></i> Ask about this service</a>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="thumb graphics"><span class="badge"><i class="fa-solid fa-pen-nib"></i></span></div>
+                <div class="card-body">
+                    <h3>GRAPHICS &amp; DESIGN</h3>
+                    <p>Branding, promotional materials and creative designs that make you stand out.</p>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i>Logos and brand identity</li>
+                        <li><i class="fa-solid fa-check"></i>Posters, flyers and banners</li>
+                        <li><i class="fa-solid fa-check"></i>Social media designs</li>
+                    </ul>
+                    <a class="ask" target="_blank" rel="noopener"
+                       href="https://wa.me/256761294119?text=Hello%20AndieTech%20Solutions,%20I%20am%20interested%20in%20Graphics%20and%20Design.">
+                        <i class="fa-brands fa-whatsapp"></i> Ask about this service</a>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="thumb internet"><span class="badge"><i class="fa-solid fa-wifi"></i></span></div>
+                <div class="card-body">
+                    <h3>UNLIMITED INTERNET CONNECTIONS</h3>
+                    <p>Unlimited internet services with KYC activation for Android users.</p>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i>Unlimited internet packages</li>
+                        <li><i class="fa-solid fa-check"></i>Activated with KYC registration</li>
+                        <li><i class="fa-solid fa-check"></i>Available for Android users</li>
+                    </ul>
+                    <a class="ask" target="_blank" rel="noopener"
+                       href="https://wa.me/256761294119?text=Hello%20AndieTech%20Solutions,%20I%20am%20interested%20in%20Unlimited%20Internet.">
+                        <i class="fa-brands fa-whatsapp"></i> Ask about this service</a>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="thumb data"><span class="badge"><i class="fa-solid fa-chart-column"></i></span></div>
+                <div class="card-body">
+                    <h3>DATA ANALYSIS</h3>
+                    <p>We transform your data into useful business insights you can act on.</p>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i>Cleaning and organising data</li>
+                        <li><i class="fa-solid fa-check"></i>Reports and dashboards</li>
+                        <li><i class="fa-solid fa-check"></i>Insights for better decisions</li>
+                    </ul>
+                    <a class="ask" target="_blank" rel="noopener"
+                       href="https://wa.me/256761294119?text=Hello%20AndieTech%20Solutions,%20I%20am%20interested%20in%20Data%20Analysis.">
+                        <i class="fa-brands fa-whatsapp"></i> Ask about this service</a>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="thumb marketing"><span class="badge"><i class="fa-solid fa-bullhorn"></i></span></div>
+                <div class="card-body">
+                    <h3>DIGITAL MARKETING</h3>
+                    <p>Social media, online advertising and digital growth for your brand.</p>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i>Social media management</li>
+                        <li><i class="fa-solid fa-check"></i>Online advertising</li>
+                        <li><i class="fa-solid fa-check"></i>Growing your online audience</li>
+                    </ul>
+                    <a class="ask" target="_blank" rel="noopener"
+                       href="https://wa.me/256761294119?text=Hello%20AndieTech%20Solutions,%20I%20am%20interested%20in%20Digital%20Marketing.">
+                        <i class="fa-brands fa-whatsapp"></i> Ask about this service</a>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="thumb system"><span class="badge"><i class="fa-solid fa-server"></i></span></div>
+                <div class="card-body">
+                    <h3>SYSTEM DEVELOPMENT &amp; MANAGEMENT</h3>
+                    <p>Reliable business systems and technical management,<br> from setup to daily support.</p>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i>Business systems set up</li>
+                        <li><i class="fa-solid fa-check"></i>Technical management</li>
+                        <li><i class="fa-solid fa-check"></i>Ongoing support</li>
+                    </ul>
+                    <a class="ask" target="_blank" rel="noopener"
+                       href="https://wa.me/256761294119?text=Hello%20AndieTech%20Solutions,%20I%20am%20interested%20in%20System%20Development%20and%20Management.">
+                        <i class="fa-brands fa-whatsapp"></i> Ask about this service</a>
+                </div>
+            </article>
+
+        </div>
+    </section>
+
+</div>
+
+
+<!-- ==================================================== -->
+<!-- ==================== ABOUT PAGE ==================== -->
+<!-- ==================================================== -->
+<div class="page" id="page-about">
+
+    <section class="page-head">
+        <div class="wrap">
+            <h1>About AndieTech Solutions</h1>
+            <p>A technology company providing innovative, affordable and reliable digital solutions.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="wrap about-grid">
+            <div class="prose">
+                <h2 class="h2">Who we are</h2>
+                <p>
+                    AndieTech Solutions is a technology company providing innovative,
+                    affordable and reliable digital solutions for individuals,
+                    businesses and organizations.
+                </p>
+                <p>
+                    We work from Mbarara City, Kihumuro_MUST. Whether you need a website,
+                    a business system, a brand or a dependable internet connection,
+                    we listen first and then build what fits your needs and budget.
+                </p>
+            </div>
+
+            <figure class="ceo">
+                <img src=/"A42A0347.JPG" alt="CEO of AndieTech Solutions" loading="lazy"
+                     onerror="var f=this.closest('figure');f.parentElement.classList.add('solo');f.remove();">
+                <figcaption>Let's Discuss Your Next Project<span>WITH <br>AndieTech </span></figcaption>
+            </figure>
+        </div>
+    </section>
+
+    <section class="section white">
+        <div class="wrap mv">
+            <article>
+                <i class="fa-solid fa-bullseye"></i>
+                <h3>OUR MISSION</h3>
+                <p>
+                    To deliver innovative technology solutions that empower
+                    businesses and organizations to achieve their goals.
+                </p>
+            </article>
+            <article>
+                <i class="fa-solid fa-eye"></i>
+                <h3>OUR VISION</h3>
+                <p>
+                    To become a trusted technology solutions provider recognized
+                    for innovation, quality and impact.
+                </p>
+            </article>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="wrap">
+            <h2 class="h2">WHAT WE STAND FOR ?</h2>
+            <ul class="values">
+                <li><h3>INNOVATION</h3><p>We look for better ways to solve real problems.</p></li>
+                <li><h3>QUALITY</h3><p>We check our work before we hand it over.</p></li>
+                <li><h3>IMPACT</h3><p>We measure success by how much your business grows.</p></li>
+                <li><h3>RELIABILITY</h3><p>We do what we promise and stay in touch after delivery.</p></li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="section white">
+        <div class="wrap">
+            <h2 class="h2">HOW WE WORK WITH YOU ?</h2>
+            <ol class="steps">
+                <li><h3>Tell us what you need</h3><p>Call or message us on WhatsApp with your idea or problem.</p></li>
+                <li><h3>Agree on the plan</h3><p>We explain the options, the timeline and the cost.</p></li>
+                <li><h3>We build it</h3><p>We work on your project and keep you updated.</p></li>
+                <li><h3>Launch and support</h3><p>You get the finished work and help whenever you need it.</p></li>
+            </ol>
+        </div>
+    </section>
+
+</div>
+
+
+<!-- ==================================================== -->
+<!-- =================== CONTACT PAGE =================== -->
+<!-- ==================================================== -->
+<div class="page" id="page-contact">
+
+    <section class="page-head">
+        <div class="wrap">
+            <h1>GET IN TOUCH</h1>
+            <p>Let's discuss your next Technology project.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="wrap contact-grid">
+
+            <div class="rows">
+                <div class="row">
+                    <span class="ico"><i class="fa-solid fa-phone"></i></span>
+                    <div>
+                        <small>Call</small>
+                        <b><a href="tel:+256756027164">0756027164</a> / <a href="tel:+256731918383">0731918383</a></b>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="ico"><i class="fa-brands fa-whatsapp"></i></span>
+                    <div>
+                        <small>WhatsApp</small>
+                        <b><a href="https://wa.me/256761294119" target="_blank" rel="noopener">0761294119</a></b>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="ico"><i class="fa-solid fa-envelope"></i></span>
+                    <div>
+                        <small>Email</small>
+                        <b><a href="mailto:anditech2@gmail.com">anditech2@gmail.com</a></b>
+                    </div>
+                </div>
+                <div class="row">
+                    <span class="ico"><i class="fa-solid fa-location-dot"></i></span>
+                    <div>
+                        <small>Location</small>
+                        <b><a href="https://www.google.com/maps/search/?api=1&amp;query=Kihumuro%20Mbarara"
+                              target="_blank" rel="noopener">Mbarara City, Kihumuro</a></b>
+                    </div>
+                </div>
+            </div>
+
+            <form class="form" id="waForm">
+                <h2>Send us a message</h2>
+                <p>Fill in the details and we will open WhatsApp with your message ready to send.</p>
+
+                <div class="field">
+                    <label for="fName">Your name</label>
+                    <input id="fName" type="text" autocomplete="name" required>
+                </div>
+
+                <div class="field">
+                    <label for="fService">What do you need?</label>
+                    <select id="fService">
+                        <option>Software Development</option>
+                        <option>Web Development</option>
+                        <option>Graphics &amp; Design</option>
+                        <option>Unlimited Internet</option>
+                        <option>Data Analysis</option>
+                        <option>Digital Marketing</option>
+                        <option>System Development &amp; Management</option>
+                        <option>Something else</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="fMsg">Your message</label>
+                    <textarea id="fMsg" required></textarea>
+                </div>
+
+                <button class="btn btn-wa" type="submit">
+                    <i class="fa-brands fa-whatsapp"></i> Send on WhatsApp
+                </button>
+            </form>
+
+        </div>
+    </section>
+
+</div>
+
+</main>
+
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer">
+    <div class="footer-grid">
+        <div>
+            <div class="brand"><span class="mark">A</span><span>AndieTech <em>Solutions</em></span></div>
+            <p>Technology That Moves Business Forward.</p>
+        </div>
+
+        <div>
+            <h3>Pages</h3>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h3>REACH US </h3>
+            <ul>
+                <li><a href="tel:+256756027164">0756027164</a> / <a href="tel:+256731918383">0731918383</a></li>
+                <li><a href="mailto:anditech2@gmail.com">anditech2@gmail.com</a></li>
+                <li>Mbarara City, Kihumuro</li>
+            </ul>
+        </div>
+    </div>
+
+    <p class="copy">© 2026 AndieTech Solutions. All rights reserved.</p>
+</footer>
+
+
+<!-- ================= FLOATING WHATSAPP ================= -->
+<a href="https://wa.me/256761294119?text=Hello%20AndieTech%20Solutions,%20I%20would%20like%20to%20make%20an%20inquiry."
+   target="_blank" rel="noopener" class="float" aria-label="Chat on WhatsApp">
+    <i class="fa-brands fa-whatsapp"></i>
+</a>
+
+
+<script>
+(function () {
+    var pages = ['home', 'services', 'about', 'contact'];
+    var titles = {
+        home: 'AndieTech Solutions | Technology That Moves Business Forward',
+        services: 'Our Services | AndieTech Solutions',
+        about: 'About Us | AndieTech Solutions',
+        contact: 'Contact Us | AndieTech Solutions'
+    };
+
+    var drawer   = document.getElementById('drawer');
+    var scrim    = document.getElementById('scrim');
+    var openBtn  = document.getElementById('openMenu');
+    var closeBtn = document.getElementById('closeMenu');
+
+    /* ---------- side menu ---------- */
+    function openDrawer() {
+        drawer.classList.add('open');
+        scrim.classList.add('show');
+        document.body.classList.add('lock');
+        openBtn.setAttribute('aria-expanded', 'true');
+        closeBtn.focus();
+    }
+
+    function closeDrawer(restoreFocus) {
+        if (!drawer.classList.contains('open')) return;
+        drawer.classList.remove('open');
+        scrim.classList.remove('show');
+        document.body.classList.remove('lock');
+        openBtn.setAttribute('aria-expanded', 'false');
+        if (restoreFocus) openBtn.focus();
+    }
+
+    openBtn.addEventListener('click', openDrawer);
+    closeBtn.addEventListener('click', function () { closeDrawer(true); });
+    scrim.addEventListener('click', function () { closeDrawer(true); });
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeDrawer(true);
+    });
+    window.addEventListener('resize', function () {
+        if (window.innerWidth >= 900) closeDrawer(false);
+    });
+
+    /* ---------- page switching ---------- */
+    function route() {
+        var name = (location.hash || '#home').replace('#', '').replace('/', '');
+        if (pages.indexOf(name) === -1) name = 'home';
+
+        pages.forEach(function (p) {
+            document.getElementById('page-' + p).classList.toggle('active', p === name);
+        });
+
+        document.querySelectorAll('[data-link]').forEach(function (a) {
+            var on = a.getAttribute('data-link') === name;
+            a.classList.toggle('active', on);
+            if (on) a.setAttribute('aria-current', 'page');
+            else a.removeAttribute('aria-current');
+        });
+
+        document.title = titles[name];
+        window.scrollTo(0, 0);
+        closeDrawer(false);
+    }
+
+    window.addEventListener('hashchange', route);
+
+    document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+        a.addEventListener('click', function () {
+            closeDrawer(false);
+            if (a.getAttribute('href') === (location.hash || '#home')) window.scrollTo(0, 0);
+        });
+    });
+
+    route();
+
+    /* ---------- contact form -> WhatsApp ---------- */
+    document.getElementById('waForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name    = document.getElementById('fName').value.trim();
+        var service = document.getElementById('fService').value;
+        var msg     = document.getElementById('fMsg').value.trim();
+
+        var need = service === 'Something else' ? 'your services' : service;
+        var text = 'Hello AndieTech Solutions, my name is ' + name +
+                   '. I am interested in ' + need + '. ' + msg;
+
+        window.open('https://wa.me/256761294119?text=' + encodeURIComponent(text), '_blank', 'noopener');
+    });
+})();
+</script>
+
+</body>
+</html>
